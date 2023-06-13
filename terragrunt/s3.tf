@@ -1,5 +1,5 @@
 module "cds_salesforce_backups_bucket" {
-  source = "github.com/cds-snc/terraform-modules?ref=v5.1.8//S3"
+  source = "github.com/cds-snc/terraform-modules?ref=v6.0.2//S3"
 
   bucket_name        = "cds-salesforce-backups"
   billing_tag_value  = var.billing_code
@@ -16,7 +16,7 @@ module "cds_salesforce_backups_bucket" {
 }
 
 module "cds_salesforce_backups_logs_bucket" {
-  source = "github.com/cds-snc/terraform-modules?ref=v5.1.8//S3"
+  source = "github.com/cds-snc/terraform-modules?ref=v6.0.2//S3_log_bucket"
 
   bucket_name       = "cds-salesforce-backups-access-logs"
   billing_tag_value = var.billing_code
