@@ -29,7 +29,7 @@ def cleanup_records(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
 
 
 def replace_newlines_in_dict_values(
-    dicts: list[dict[str, Any]]
+    dicts: list[dict[str, Any]],
 ) -> list[dict[str, Any]]:
     """Replaces newlines in the values of a dictionary
 
