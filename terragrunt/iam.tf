@@ -47,3 +47,68 @@ resource "aws_iam_role_policy_attachment" "oidc" {
     module.oidc,
   ]
 }
+
+#
+# Replicate the Salesforce data to the Data Lake
+#
+resource "aws_iam_role" "salesforce_replicate" {
+  name               = "SalesforceReplicateToDataLake"
+  assume_role_policy = data.aws_iam_policy_document.salesforce_replicate_assume.json
+  tags               = local.common_tags
+}
+resource "aws_iam_policy" "salesforce_replicate" {
+  name   = "SalesforceReplicateToDataLake"
+  policy = data.aws_iam_policy_document.salesforce_replicate_assume.json
+  tags   = local.common_tags
+}
+resource "aws_iam_role_policy_attachment" "salesforce_replicate" {
+  role       = aws_iam_role.salesforce_replicate.name
+  policy_arn = aws_iam_policy.salesforce_replicate.arn
+}
+
+data "aws_iam_policy_document" "salesforce_replicate_assume" {
+  statement {
+    effect  = "Allow"
+    actions = ["sts:AssumeRole"]
+    principals {
+      type = "Service"
+      identifiers = [
+        "s3.amazonaws.com"
+      ]
+    }
+  }
+}
+
+data "aws_iam_policy_document" "salesforce_replicate" {
+  statement {
+    effect = "Allow"
+    actions = [
+      "s3:GetReplicationConfiguration",
+      "s3:ListBucket"
+    ]
+    resources = [
+      module.cds_salesforce_backups_bucket.s3_bucket_arn
+    ]
+  }
+  statement {
+    effect = "Allow"
+    actions = [
+      "s3:GetObjectVersion",
+      "s3:GetObjectVersionAcl"
+    ]
+    resources = [
+      "${module.cds_salesforce_backups_bucket.s3_bucket_arn}/*"
+    ]
+  }
+  statement {
+    effect = "Allow"
+    actions = [
+      "s3:ObjectOwnerOverrideToBucketOwner",
+      "s3:ReplicateObject",
+      "s3:ReplicateDelete"
+    ]
+    resources = [
+      "${local.data_lake_raw_s3_bucket_arn}/*"
+    ]
+  }
+}
