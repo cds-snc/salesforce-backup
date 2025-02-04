@@ -1,6 +1,6 @@
 module "cds_salesforce_backups_bucket" {
   source = "github.com/cds-snc/terraform-modules//S3?ref=v5.1.11"
-  
+
   replication_configuration = {
     role = aws_iam_role.salesforce_replicate.arn
 
