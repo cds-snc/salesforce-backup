@@ -56,11 +56,13 @@ resource "aws_iam_role" "salesforce_replicate" {
   assume_role_policy = data.aws_iam_policy_document.salesforce_replicate_assume.json
   tags               = local.common_tags
 }
+
 resource "aws_iam_policy" "salesforce_replicate" {
   name   = "SalesforceReplicateToDataLake"
   policy = data.aws_iam_policy_document.salesforce_replicate_assume.json
   tags   = local.common_tags
 }
+
 resource "aws_iam_role_policy_attachment" "salesforce_replicate" {
   role       = aws_iam_role.salesforce_replicate.name
   policy_arn = aws_iam_policy.salesforce_replicate.arn
@@ -108,7 +110,7 @@ data "aws_iam_policy_document" "salesforce_replicate" {
       "s3:ReplicateDelete"
     ]
     resources = [
-      "${local.data_lake_raw_s3_bucket_arn}/*"
+      "${local.data_lake_raw_s3_bucket_arn}/bes/crm/salesforce/*"
     ]
   }
 }
