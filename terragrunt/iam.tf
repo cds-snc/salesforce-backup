@@ -59,7 +59,7 @@ resource "aws_iam_role" "salesforce_replicate" {
 
 resource "aws_iam_policy" "salesforce_replicate" {
   name   = "SalesforceReplicateToDataLake"
-  policy = data.aws_iam_policy_document.salesforce_replicate_assume.json
+  policy = data.aws_iam_policy_document.salesforce_replicate.json
   tags   = local.common_tags
 }
 
