@@ -1,9 +1,8 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src/python
 {
-	"name": "Python 3",
-	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-	"image": "mcr.microsoft.com/devcontainers/python:0-3.11@sha256:452e43dd2381de67191c53f7692433baba156ee9138ccfaed5124ff26c63eaed",
+	"name": "salesforce-backup",
+	"image": "mcr.microsoft.com/devcontainers/python:3.13",
 	"remoteEnv": {
 		"PATH": "/home/vscode/.local/bin:${containerEnv:PATH}" // give our installed Python modules precedence
 	},
