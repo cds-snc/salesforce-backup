@@ -37,7 +37,7 @@ jobs:
         role-session-name: salesforce-backup
         aws-region: ca-central-1
 
-    - uses: actions/setup-python@b64ffcaf5b410884ad320a9cfac8866006a109aa # v4.8.0
+    - uses: actions/setup-python@3605726ffa6ef7750b99ff496e5b88248b414e26 # v4.9.0
       with:
         python-version: '3.13'
 
